@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nea", "Nea\Nea.csproj", "{A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeaProgramServer", "NeaProgramServer\NeaProgramServer.csproj", "{2E462CD0-C43D-4194-9DC9-8C5A707BF05A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeaProgramStarter", "NeaProgramStarter\NeaProgramStarter.csproj", "{BA7C96B2-A53E-48DE-8E31-A99793961433}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2E462CD0-C43D-4194-9DC9-8C5A707BF05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E462CD0-C43D-4194-9DC9-8C5A707BF05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E462CD0-C43D-4194-9DC9-8C5A707BF05A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA7C96B2-A53E-48DE-8E31-A99793961433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA7C96B2-A53E-48DE-8E31-A99793961433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA7C96B2-A53E-48DE-8E31-A99793961433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA7C96B2-A53E-48DE-8E31-A99793961433}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
