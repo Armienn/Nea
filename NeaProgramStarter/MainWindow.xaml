@@ -6,9 +6,9 @@
 		<Label Content="Counter Strike: Source  :" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
 		<Label Content="Minecraft  :" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top"/>
 		<Label Content="Terraria  :" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
-		<Label x:Name="statuscss" Content="CURRENTLY STOPPED" HorizontalAlignment="Right" Margin="0,41,166,0" VerticalAlignment="Top"/>
-		<Label x:Name="statusminecraft" Content="CURRENTLY STOPPED" HorizontalAlignment="Right" Margin="0,67,166,0" VerticalAlignment="Top"/>
-		<Label x:Name="statusterraria" Content="CURRENTLY STOPPED" HorizontalAlignment="Right" Margin="0,93,166,0" VerticalAlignment="Top"/>
+		<Label x:Name="statuscss" Content="UNKNOWN" HorizontalAlignment="Right" Margin="0,41,166,0" VerticalAlignment="Top"/>
+		<Label x:Name="statusminecraft" Content="UNKNOWN" HorizontalAlignment="Right" Margin="0,67,166,0" VerticalAlignment="Top"/>
+		<Label x:Name="statusterraria" Content="UNKNOWN" HorizontalAlignment="Right" Margin="0,93,166,0" VerticalAlignment="Top"/>
 		<Button x:Name="buttoncss" Content="Start" HorizontalAlignment="Right" Margin="0,43,10,0" VerticalAlignment="Top" Width="151" Click="buttoncss_Click"/>
 		<Button x:Name="buttonminecraft" Content="Start" HorizontalAlignment="Right" Margin="0,69,10,0" VerticalAlignment="Top" Width="151" Click="buttonminecraft_Click"/>
 		<Button x:Name="buttonterraria" Content="Start" HorizontalAlignment="Right" Margin="0,95,10,0" VerticalAlignment="Top" Width="151" Click="buttonterraria_Click"/>

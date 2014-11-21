@@ -1,7 +1,7 @@
 ﻿<Window x:Class="NeaProgramServer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="128" Width="512" Closed="Window_Closed">
+        Title="Program Server" Height="128" Width="512" Closed="Window_Closed">
 	<Grid Background="#FFECECEC">
 		<Label Content="Counter Strike: Source  :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
 		<Label Content="Minecraft  :" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>

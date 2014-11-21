@@ -41,6 +41,8 @@ namespace NeaProgramServer {
 			minecraft.StartInfo.WorkingDirectory = "C:\\Users\\Kristjan\\Dropbox\\Spil\\Minecraft server (2)";
 			minecraft.StartInfo.FileName = "serverjar.bat";
 
+			terraria = new Process();
+
 			StartListening();
 		}
 
@@ -115,20 +117,54 @@ namespace NeaProgramServer {
 				}
 
 				if (message == "")
-					continue;
+					break;
 
 				switch (message) {
 					case "css-start":
-						StartProcess(css, statuscss, buttoncss);
+						Dispatcher.Invoke(() => { StartProcess(css, statuscss, buttoncss); });
 						break;
 					case "css-stop":
-						StopProcess(css, statuscss, buttoncss);
+						Dispatcher.Invoke(() => { StopProcess(css, statuscss, buttoncss); });
 						break;
 					case "minecraft-start":
-						StartProcess(minecraft, statusminecraft, buttonminecraft);
+						Dispatcher.Invoke(() => { StartProcess(minecraft, statusminecraft, buttonminecraft); });
 						break;
 					case "minecraft-stop":
-						StopProcess(minecraft, statusminecraft, buttonminecraft);
+						Dispatcher.Invoke(() => { StopProcess(minecraft, statusminecraft, buttonminecraft); });
+						break;
+					case "terraria-start":
+						//Dispatcher.Invoke(()=>{StartProcess(terraria, statusterraria, buttonterraria);});
+						break;
+					case "terraria-stop":
+						//Dispatcher.Invoke(()=>{StopProcess(terraria, statusterraria, buttonterraria);});
+						break;
+					case "status":
+						string response = "";
+						bool running = false;
+						try {
+							Process.GetProcessById(css.Id);
+							running = true;
+						}
+						catch { }
+						response += running ? "1" : "0";
+						running = false;
+						try {
+							Process.GetProcessById(minecraft.Id);
+							running = true;
+						}
+						catch { }
+						response += running ? "1" : "0";
+						running = false;
+						try {
+							Process.GetProcessById(terraria.Id);
+							running = true;
+						}
+						catch { }
+						response += running ? "1" : "0";
+						SendMessage(tcpClient, response);
+						break;
+					default:
+
 						break;
 				}
 			}
@@ -162,6 +198,21 @@ namespace NeaProgramServer {
 				catch { }
 			}
 			this.tcpListener.Stop();
+		}
+
+		public void SendMessage(TcpClient client, string messagebody) {
+			byte[] message = encoder.GetBytes(messagebody);
+			byte[] sizeinfo = new byte[4];
+
+			//could optionally call BitConverter.GetBytes(data.length);
+			sizeinfo[0] = (byte)message.Length;
+			sizeinfo[1] = (byte)(message.Length >> 8);
+			sizeinfo[2] = (byte)(message.Length >> 16);
+			sizeinfo[3] = (byte)(message.Length >> 24);
+
+			client.GetStream().Write(sizeinfo, 0, 4);
+			client.GetStream().Write(message, 0, message.Length);
+			client.GetStream().Flush();
 		}
 
 		static string ReadMessage(NetworkStream stream) {

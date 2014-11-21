@@ -108,6 +108,8 @@ namespace NeaProgramStarter {
 				SendMessage(client, request);
 			}
 
+			SendMessage(client, "");
+
 			client.Close();
 		}
 
