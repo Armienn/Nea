@@ -24,6 +24,10 @@ namespace NeaProgramServer {
 	/// </summary>
 	public partial class MainWindow : Window {
 
+		[System.Runtime.InteropServices.DllImport("user32.dll")]
+		static extern bool PostMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
+		const uint WM_KEYDOWN = 0x0100;
+
 		private const int Port = 17771;
 		private TcpListener tcpListener;
 		private Thread listenThread;
@@ -42,6 +46,8 @@ namespace NeaProgramServer {
 			minecraft.StartInfo.FileName = "serverjar.bat";
 
 			terraria = new Process();
+			terraria.StartInfo.WorkingDirectory = "C:\\Users\\Kristjan\\Dropbox\\Spil\\Terraria";
+			terraria.StartInfo.FileName = "start-server.bat";
 
 			StartListening();
 		}
@@ -64,12 +70,31 @@ namespace NeaProgramServer {
 				StartProcess(minecraft, statusminecraft, buttonminecraft);
 			}
 			else {
+				IntPtr handle = minecraft.MainWindowHandle;
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.S, 0);
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.T, 0);
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.O, 0);
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.P, 0);
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.Enter, 0);
+				minecraft.WaitForExit(5000);
 				StopProcess(minecraft, statusminecraft, buttonminecraft);
 			}
 		}
 
 		private void buttonterraria_Click(object sender, RoutedEventArgs e) {
-
+			if (((string)buttonterraria.Content) == "Start") {
+				StartProcess(terraria, statusterraria, buttonterraria);
+			}
+			else {
+				IntPtr handle = terraria.MainWindowHandle;
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.E, 0);
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.X, 0);
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.I, 0);
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.T, 0);
+				PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.Enter, 0);
+				terraria.WaitForExit(5000);
+				StopProcess(terraria, statusterraria, buttonterraria);
+			}
 		}
 
 		private void StartProcess(Process process, Label label, Button button) {
@@ -133,10 +158,10 @@ namespace NeaProgramServer {
 						Dispatcher.Invoke(() => { StopProcess(minecraft, statusminecraft, buttonminecraft); });
 						break;
 					case "terraria-start":
-						//Dispatcher.Invoke(()=>{StartProcess(terraria, statusterraria, buttonterraria);});
+						Dispatcher.Invoke(() => { StartProcess(terraria, statusterraria, buttonterraria); });
 						break;
 					case "terraria-stop":
-						//Dispatcher.Invoke(()=>{StopProcess(terraria, statusterraria, buttonterraria);});
+						Dispatcher.Invoke(() => { StopProcess(terraria, statusterraria, buttonterraria); });
 						break;
 					case "status":
 						string response = "";
