@@ -155,13 +155,31 @@ namespace NeaProgramServer {
 						Dispatcher.Invoke(() => { StartProcess(minecraft, statusminecraft, buttonminecraft); });
 						break;
 					case "minecraft-stop":
-						Dispatcher.Invoke(() => { StopProcess(minecraft, statusminecraft, buttonminecraft); });
+						Dispatcher.Invoke(() => {
+							IntPtr handle = minecraft.MainWindowHandle;
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.S, 0);
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.T, 0);
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.O, 0);
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.P, 0);
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.Enter, 0);
+							minecraft.WaitForExit(5000);
+							StopProcess(minecraft, statusminecraft, buttonminecraft); 
+						});
 						break;
 					case "terraria-start":
 						Dispatcher.Invoke(() => { StartProcess(terraria, statusterraria, buttonterraria); });
 						break;
 					case "terraria-stop":
-						Dispatcher.Invoke(() => { StopProcess(terraria, statusterraria, buttonterraria); });
+						Dispatcher.Invoke(() => {
+							IntPtr handle = terraria.MainWindowHandle;
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.E, 0);
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.X, 0);
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.I, 0);
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.T, 0);
+							PostMessage(handle, WM_KEYDOWN, (int)System.Windows.Forms.Keys.Enter, 0);
+							terraria.WaitForExit(5000);
+							StopProcess(terraria, statusterraria, buttonterraria);
+						});
 						break;
 					case "status":
 						string response = "";
