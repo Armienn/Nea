@@ -30,27 +30,32 @@ namespace MkvBatching {
 		}
 
 		private void Work() {
-			WriteLine("Hello World");
-			Thread.Sleep(1000);
-			WriteLine("Hello World Again");
-			Thread.Sleep(5000);
+			WriteLine("Entering Work");
+			Program.DoWork(this);
+			WriteLine("Ending Work");
+			/*Thread.Sleep(5000);
 			WriteLine("I'm sleepy æøå");
 			while (true) {
 				String tekst = GetInput("Write something");
 				WriteLine(tekst);
-			}
+			}*/
 		}
 
-		private void WriteLine(String text) {
+		public void Write(String text) {
 			Dispatcher.Invoke(() => {
-				TextBlockOutput.Text += text + "\n";
+				TextBlockOutput.Text += text;
 				TextScrollViewer.ScrollToBottom();
 			});
+
 		}
 
-		private string GetInput(string message = "") {
+		public void WriteLine(String text) {
+			Write(text + '\n');
+		}
+
+		public string GetInput(string message = "") {
 			updated = false;
-			WriteLine(message);
+			Write("## - " + message + ": ");
 			Dispatcher.Invoke(() => {
 				ButtonActivate.IsEnabled = true;
 				TextBoxInput.IsEnabled = true;
@@ -62,6 +67,7 @@ namespace MkvBatching {
 				ButtonActivate.IsEnabled = false;
 				TextBoxInput.IsEnabled = false;
 			});
+			WriteLine(input);
 			return input;
 		}
 
@@ -69,6 +75,10 @@ namespace MkvBatching {
 			input = TextBoxInput.Text;
 			TextBoxInput.Text = "";
 			updated = true;
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+			workerthread.Abort();
 		}
 	}
 }
