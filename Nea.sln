@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeaProgramServer", "NeaProg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeaProgramStarter", "NeaProgramStarter\NeaProgramStarter.csproj", "{BA7C96B2-A53E-48DE-8E31-A99793961433}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MkvBatching", "MkvBatching\MkvBatching.csproj", "{F84E25A0-E933-4F61-BCAA-0733B91C840E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BA7C96B2-A53E-48DE-8E31-A99793961433}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA7C96B2-A53E-48DE-8E31-A99793961433}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA7C96B2-A53E-48DE-8E31-A99793961433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F84E25A0-E933-4F61-BCAA-0733B91C840E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F84E25A0-E933-4F61-BCAA-0733B91C840E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F84E25A0-E933-4F61-BCAA-0733B91C840E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F84E25A0-E933-4F61-BCAA-0733B91C840E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
