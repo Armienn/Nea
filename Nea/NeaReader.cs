@@ -262,7 +262,8 @@ namespace Nea
 
 		/// <summary>
 		/// Reads the stream until it reaches the String t, and returns the result
-		/// without the terminating string.
+		/// without the terminating string. The terminating string is removed from
+		/// the stream.
 		/// </summary>
 		/// <param name="t"></param>
 		public String ReadUntil(String t) {
@@ -285,6 +286,8 @@ namespace Nea
 						break;
 					}
 				}
+				else
+					test = "" + (char)c;
 				tekst.Append(test);
 			}
 			return tekst.ToString();
