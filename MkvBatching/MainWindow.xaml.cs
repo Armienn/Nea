@@ -80,5 +80,13 @@ namespace MkvBatching {
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
 			workerthread.Abort();
 		}
+
+		private void TextBoxInput_KeyDown(object sender, KeyEventArgs e) {
+			if (e.Key == Key.Enter) {
+				input = TextBoxInput.Text;
+				TextBoxInput.Text = "";
+				updated = true;
+			}
+		}
 	}
 }

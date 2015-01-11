@@ -74,6 +74,7 @@ namespace MkvBatching {
 				string maininputarguments =
 					" --track-name 0:\"\"" +
 					" --track-name 1:\"English AC3 2.0\"" +
+					" --language 1:eng" +
 					//" --track-name 0:\"\"" +
 					//" --track-name 1:\"Japanese FLAC 2.0\"" +
 					//" --track-name 2:General" +
@@ -89,7 +90,8 @@ namespace MkvBatching {
 					files.AddRange(Directory.GetFiles(Environment.CurrentDirectory, "*.ssa"));
 					for (int i = 0; i < files.Count; i++) {
 						files[i] = Path.GetFileName(files[i]);
-						if (files[i].Substring(0, files[i].Length - 4) == tempname.Substring(0, tempname.Length - 4)) {
+						string temp = files[i].Substring(0, files[i].Length - 4);
+						if (temp == tempname) {
 							file = files[i];
 							break;
 						}
@@ -98,6 +100,8 @@ namespace MkvBatching {
 					if (file.Length > 0) {
 						subinputarguments =
 							" --track-name 0:General" +
+							" --language 0:eng" +
+							" --default-track 0:0" +
 							" \"" + file + "\"";
 					}
 				}
