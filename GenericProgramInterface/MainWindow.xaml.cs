@@ -31,7 +31,7 @@ namespace GenericProgramInterface {
 
 		private void Work() {
 			WriteLine("Entering Work");
-			Program.DoWork(this);
+			MkvBatching.DoWork(this);
 			WriteLine("Ending Work");
 			/*Thread.Sleep(5000);
 			WriteLine("I'm sleepy æøå");
