@@ -103,7 +103,7 @@ namespace Language {
 	public struct GlottalArticulation {
 		public ObstructionPoint Point {
 			get {
-				switch (voice) {
+				switch (Voice) {
 					case Voice.Voiceless:
 						return ObstructionPoint.None;
 					default:
@@ -113,7 +113,7 @@ namespace Language {
 		}
 		public Manner Manner {
 			get {
-				switch (voice) {
+				switch (Voice) {
 					case Voice.Breathy:
 						return Manner.Fricative;
 					case Voice.Modal:
