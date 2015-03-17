@@ -78,7 +78,7 @@ namespace Language {
 			Manner.NearOpen,
 			Manner.Open });
 
-		public readonly bool Centralised;
+		public readonly bool Centralised; // modifier for point at palatal and uvular, moving it closer to velar
 	}
 
 	public struct RadicalArticulation {
