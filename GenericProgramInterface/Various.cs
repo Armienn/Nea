@@ -36,7 +36,7 @@ namespace GenericProgramInterface {
 						mod *= 2;
 
 						if (currentbit == 7) {
-							output += char.ConvertFromUtf32(character);
+							output += (char)character;
 							mod = 1;
 							character = 0;
 						}
