@@ -152,6 +152,70 @@ namespace Language {
 		RadicalArticulation radicalArticulation;
 
 		GlottalArticulation glottalArticulation;
+
+		public String FullRepresentation(bool extrafull = false) {
+			String representation = "";
+			if (extrafull || airstream != Airstream.Egressive)
+				representation += airstream;
+			if (extrafull || initiation != Initiation.Pulmonic)
+				representation += initiation;
+
+			representation += glottalArticulation.Voice + (labialArticulation.Rounded ? "Rounded" : "");
+
+			if (labialArticulation.Point != ObstructionPoint.None)
+				representation += "-Labial" + labialArticulation.Point + labialArticulation.Manner;
+			if (coronalArticulation.Point != ObstructionPoint.None)
+				representation += "-Coronal" + coronalArticulation.Shape + coronalArticulation.Point + coronalArticulation.Manner;
+			if (dorsalArticulation.Point != ObstructionPoint.None)
+				representation += "-Dorsal" + (dorsalArticulation.Centralised ? "Centralised" : "") + dorsalArticulation.Point + dorsalArticulation.Manner;
+			if (radicalArticulation.Point != ObstructionPoint.None)
+				representation += "-Radical" + radicalArticulation.Point + radicalArticulation.Manner;
+			if (glottalArticulation.Point != ObstructionPoint.None)
+				representation += "-Glottal" + glottalArticulation.Point + glottalArticulation.Manner;
+
+			return representation;
+		}
+
+		public String ShortenedRepresentation() {
+			String representation = "";
+			if (airstream == Airstream.Ingressive)
+				representation += ">";
+			if (initiation == Initiation.Glottalic)
+				representation += "?";
+			else if (initiation == Initiation.Lingual)
+				representation += "/";
+
+			switch (glottalArticulation.Voice) {
+				case Voice.Voiceless:
+					representation += "_";
+					break;
+				case Voice.Breathy:
+					representation += "~";
+					break;
+				case Voice.Modal: break;
+				case Voice.Creaky:
+					representation += "^";
+					break;
+				case Voice.Closed:
+					representation += "|";
+					break;
+			}
+
+			representation += (labialArticulation.Rounded ? "∘" : "");
+
+			if (labialArticulation.Point != ObstructionPoint.None)
+				representation += "l" + labialArticulation.Point + labialArticulation.Manner;
+			if (coronalArticulation.Point != ObstructionPoint.None)
+				representation += "c" + coronalArticulation.Shape + coronalArticulation.Point + coronalArticulation.Manner;
+			if (dorsalArticulation.Point != ObstructionPoint.None)
+				representation += "d" + (dorsalArticulation.Centralised ? "Centralised" : "") + dorsalArticulation.Point + dorsalArticulation.Manner;
+			if (radicalArticulation.Point != ObstructionPoint.None)
+				representation += "r" + radicalArticulation.Point + radicalArticulation.Manner;
+			if (glottalArticulation.Point != ObstructionPoint.None)
+				representation += "g" + glottalArticulation.Point + glottalArticulation.Manner;
+
+			return representation;
+		}
 	}
 
 	public enum Airstream { Egressive, Ingressive }
