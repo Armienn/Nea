@@ -6,6 +6,34 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Language {
+
+	public partial struct Sound {
+		Airstream airstream;
+		Initiation initiation;
+
+		LabialArticulation labialArticulation;
+
+		CoronalArticulation coronalArticulation;
+
+		DorsalArticulation dorsalArticulation;
+
+		RadicalArticulation radicalArticulation;
+
+		GlottalArticulation glottalArticulation;
+	}
+
+	public enum Airstream { Egressive, Ingressive }
+
+	public enum Initiation { Pulmonic, Glottalic, Lingual }
+
+	public enum ObstructionPoint { None, Labial, Dental, Alveolar, PostAlveolar, Palatal, Velar, Uvular, Pharyngeal, Epiglottal, Glottal }
+
+	public enum Manner { Stop, Tap, Trill, Fricative, Approximant, Close, NearClose, CloseMid, Mid, OpenMid, NearOpen, Open }
+
+	public enum Voice { Voiceless, Breathy, Modal, Creaky, Closed }
+
+	public enum Shape { Central, Lateral, Sibilant }
+
 	public struct LabialArticulation {
 		public ObstructionPoint Point { get { return point; } }
 		private readonly ObstructionPoint point;
@@ -25,6 +53,22 @@ namespace Language {
 			Manner.Approximant });
 
 		public readonly bool Rounded;
+
+		public LabialArticulation(ObstructionPoint point, Manner manner, bool rounded) {
+			this.point = point;
+			this.manner = manner;
+			Rounded = rounded;
+		}
+
+		public bool IsValid {
+			get {
+				if (!possiblepoints.Contains(point))
+					return false;
+				if (!possiblemanners.Contains(manner))
+					return false;
+				return true;
+			}
+		}
 	}
 
 	public struct CoronalArticulation {
@@ -49,6 +93,22 @@ namespace Language {
 			Manner.Approximant });
 
 		public readonly Shape Shape;
+
+		public CoronalArticulation(ObstructionPoint point, Manner manner, Shape shape) {
+			this.point = point;
+			this.manner = manner;
+			Shape = shape;
+		}
+
+		public bool IsValid {
+			get {
+				if (!possiblepoints.Contains(point))
+					return false;
+				if (!possiblemanners.Contains(manner))
+					return false;
+				return true;
+			}
+		}
 	}
 
 	public struct DorsalArticulation {
@@ -79,6 +139,25 @@ namespace Language {
 			Manner.Open });
 
 		public readonly bool Centralised; // modifier for point at palatal and uvular, moving it closer to velar
+
+		public DorsalArticulation(ObstructionPoint point, Manner manner, bool centralised = false) {
+			this.point = point;
+			this.manner = manner;
+			Centralised = centralised;
+		}
+
+		public bool IsValid {
+			get {
+				if (!possiblepoints.Contains(point))
+					return false;
+				if (!possiblemanners.Contains(manner))
+					return false;
+				if (Centralised)
+					if (point != ObstructionPoint.Palatal && point != ObstructionPoint.Uvular)
+						return false;
+				return true;
+			}
+		}
 	}
 
 	public struct RadicalArticulation {
@@ -98,6 +177,24 @@ namespace Language {
 			Manner.Trill, // only Epiglottal
 			Manner.Fricative,
 			Manner.Approximant });
+
+		public RadicalArticulation(ObstructionPoint point, Manner manner) {
+			this.point = point;
+			this.manner = manner;
+		}
+
+		public bool IsValid {
+			get {
+				if (!possiblepoints.Contains(point))
+					return false;
+				if (!possiblemanners.Contains(manner))
+					return false;
+				if (manner == Manner.Tap || manner == Manner.Trill)
+					if (point != ObstructionPoint.Epiglottal)
+						return false;
+				return true;
+			}
+		}
 	}
 
 	public struct GlottalArticulation {
@@ -137,112 +234,15 @@ namespace Language {
 			Manner.Fricative }); // corresponds to breathy, modal and creaky
 
 		public readonly Voice Voice;
-	}
 
-	public struct Sound {
-		Airstream airstream;
-		Initiation initiation;
-
-		LabialArticulation labialArticulation;
-
-		CoronalArticulation coronalArticulation;
-
-		DorsalArticulation dorsalArticulation;
-
-		RadicalArticulation radicalArticulation;
-
-		GlottalArticulation glottalArticulation;
-
-		public String FullRepresentation(bool extrafull = false) {
-			String representation = "";
-			if (extrafull || airstream != Airstream.Egressive)
-				representation += airstream;
-			if (extrafull || initiation != Initiation.Pulmonic)
-				representation += initiation;
-
-			representation += glottalArticulation.Voice + (labialArticulation.Rounded ? "Rounded" : "");
-
-			if (labialArticulation.Point != ObstructionPoint.None)
-				representation += "-Labial" + labialArticulation.Point + labialArticulation.Manner;
-			if (coronalArticulation.Point != ObstructionPoint.None)
-				representation += "-Coronal" + coronalArticulation.Shape + coronalArticulation.Point + coronalArticulation.Manner;
-			if (dorsalArticulation.Point != ObstructionPoint.None)
-				representation += "-Dorsal" + (dorsalArticulation.Centralised ? "Centralised" : "") + dorsalArticulation.Point + dorsalArticulation.Manner;
-			if (radicalArticulation.Point != ObstructionPoint.None)
-				representation += "-Radical" + radicalArticulation.Point + radicalArticulation.Manner;
-			if (glottalArticulation.Point != ObstructionPoint.None)
-				representation += "-Glottal" + glottalArticulation.Point + glottalArticulation.Manner;
-
-			return representation;
+		public GlottalArticulation(Voice voice) {
+			Voice = voice;
 		}
 
-		public String ShortenedRepresentation() {
-			String representation = "";
-			if (airstream == Airstream.Ingressive)
-				representation += ">";
-			if (initiation == Initiation.Glottalic)
-				representation += "?";
-			else if (initiation == Initiation.Lingual)
-				representation += "/";
-
-			switch (glottalArticulation.Voice) {
-				case Voice.Voiceless:
-					representation += "_";
-					break;
-				case Voice.Breathy:
-					representation += "~";
-					break;
-				case Voice.Modal: break;
-				case Voice.Creaky:
-					representation += "^";
-					break;
-				case Voice.Closed:
-					representation += "|";
-					break;
+		public bool IsValid {
+			get {
+				return true;
 			}
-
-			representation += (labialArticulation.Rounded ? "∘" : "");
-
-			if (labialArticulation.Point != ObstructionPoint.None)
-				representation += "l" + labialArticulation.Point + labialArticulation.Manner;
-			if (coronalArticulation.Point != ObstructionPoint.None)
-				representation += "c" + coronalArticulation.Shape + coronalArticulation.Point + coronalArticulation.Manner;
-			if (dorsalArticulation.Point != ObstructionPoint.None)
-				representation += "d" + (dorsalArticulation.Centralised ? "Centralised" : "") + dorsalArticulation.Point + dorsalArticulation.Manner;
-			if (radicalArticulation.Point != ObstructionPoint.None)
-				representation += "r" + radicalArticulation.Point + radicalArticulation.Manner;
-			if (glottalArticulation.Point != ObstructionPoint.None)
-				representation += "g" + glottalArticulation.Point + glottalArticulation.Manner;
-
-			return representation;
 		}
 	}
-
-	public enum Airstream { Egressive, Ingressive }
-
-	public enum Initiation { Pulmonic, Glottalic, Lingual }
-
-	public enum ObstructionPoint { None, Labial, Dental, Alveolar, PostAlveolar, Palatal, Velar, Uvular, Pharyngeal, Epiglottal, Glottal }
-
-	public enum Manner { Stop, Tap, Trill, Fricative, Approximant, Close, NearClose, CloseMid, Mid, OpenMid, NearOpen, Open }
-
-	public enum Voice { Voiceless, Breathy, Modal, Creaky, Closed }
-
-	public enum Shape { Central, Lateral, Sibilant }
-
-	//enum LabialPoint { None, Labial, Dental }
-
-	//enum CoronalPoint { None, Labial, Dental, Alveolar, PostAlveolar, Palatal }
-
-	//enum DorsalPoint { None, PostAlveolar, Palatal, Velar, Uvular }
-
-	//enum RadicalPoint { None, Pharyngeal }
-
-	//enum GlottalPoint { None, Pharyngeal, Epiglottal, Glottal }
-
-	//enum Mechanism { Pulmonic, Click, Ejective, Implosive }
-
-	//enum PulmonicType { Consonant, Vowel }
-
-	//enum ConsonantArticulation { Labial }
 }
