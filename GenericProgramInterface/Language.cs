@@ -8,6 +8,15 @@ using Language;
 namespace GenericProgramInterface {
 	class Language {
 		public static void DoWork(MainWindow ui) {
+			String input = "";
+			while (true) {
+				input = ui.GetInput();
+				if (input == "stop") break;
+
+				Sound sound = Sound.GetRandomSound();
+				ui.WriteLine(sound.FullRepresentation(true));
+				ui.WriteLine(sound.ShortenedRepresentation());
+			}
 			//ui.Write("Articulation: " + Articulation.AllowedPoints().Length);
 			//ui.Write("Labial Articulation: " + LabialArticulation.AllowedPoints().Length);
 		}
