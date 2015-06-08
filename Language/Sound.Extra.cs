@@ -24,7 +24,7 @@ namespace Language {
 			switch (art) {
 				case 0:
 					do {
-						point = LabialArticulation.possiblepoints[random.Next(LabialArticulation.possiblepoints.Count)];
+						point = LabialArticulation.possiblepoints[random.Next(LabialArticulation.possiblepoints.Count - 1) + 1];
 						manner = LabialArticulation.possiblemanners[random.Next(LabialArticulation.possiblemanners.Count)];
 						sound.labialArticulation = new LabialArticulation(point, manner, boolean);
 					}
@@ -32,7 +32,7 @@ namespace Language {
 					break;
 				case 1:
 					do {
-						point = CoronalArticulation.possiblepoints[random.Next(CoronalArticulation.possiblepoints.Count)];
+						point = CoronalArticulation.possiblepoints[random.Next(CoronalArticulation.possiblepoints.Count - 1) + 1];
 						manner = CoronalArticulation.possiblemanners[random.Next(CoronalArticulation.possiblemanners.Count)];
 						enums = Enum.GetValues(typeof(Shape));
 						shape = (Shape)enums.GetValue(random.Next(enums.Length));
@@ -42,7 +42,7 @@ namespace Language {
 					break;
 				case 2:
 					do {
-						point = DorsalArticulation.possiblepoints[random.Next(DorsalArticulation.possiblepoints.Count)];
+						point = DorsalArticulation.possiblepoints[random.Next(DorsalArticulation.possiblepoints.Count - 1) + 1];
 						manner = DorsalArticulation.possiblemanners[random.Next(DorsalArticulation.possiblemanners.Count)];
 						sound.dorsalArticulation = new DorsalArticulation(point, manner, boolean);
 					}
@@ -50,7 +50,7 @@ namespace Language {
 					break;
 				case 3:
 					do {
-						point = RadicalArticulation.possiblepoints[random.Next(RadicalArticulation.possiblepoints.Count)];
+						point = RadicalArticulation.possiblepoints[random.Next(RadicalArticulation.possiblepoints.Count - 1) + 1];
 						manner = RadicalArticulation.possiblemanners[random.Next(RadicalArticulation.possiblemanners.Count)];
 						sound.radicalArticulation = new RadicalArticulation(point, manner);
 					}
