@@ -7,19 +7,26 @@ using System.Threading.Tasks;
 namespace Language {
 	public partial struct Sound {
 
-		public static Sound GetRandomSound(Random random = null) {
+		public static Sound GetRandomSound(Random random = null, bool egressive = false, bool pulmonic = false) {
 			if (random == null)
 				random = new Random();
 			Sound sound = new Sound();
 			Array enums = Enum.GetValues(typeof(Airstream));
-			sound.airstream = (Airstream)enums.GetValue(random.Next(enums.Length));
+			sound.airstream = egressive ? Airstream.Egressive : (Airstream)enums.GetValue(random.Next(enums.Length));
 			enums = Enum.GetValues(typeof(Initiation));
-			sound.initiation = (Initiation)enums.GetValue(random.Next(enums.Length));
+			sound.initiation = pulmonic ? Initiation.Pulmonic : (Initiation)enums.GetValue(random.Next(enums.Length));
 			int art = random.Next(5);
 			ObstructionPoint point;
 			Manner manner;
 			Shape shape;
 			Voice voice;
+			do {
+				enums = Enum.GetValues(typeof(Voice));
+				voice = (Voice)enums.GetValue(random.Next(enums.Length - 1) + 1);
+				sound.glottalArticulation = new GlottalArticulation(voice);
+			}
+			while (!sound.glottalArticulation.IsValid);
+
 			bool boolean = random.Next(2) == 1 ? true : false;
 			switch (art) {
 				case 0:
@@ -57,12 +64,7 @@ namespace Language {
 					while (!sound.radicalArticulation.IsValid);
 					break;
 				case 4:
-					do {
-						enums = Enum.GetValues(typeof(Voice));
-						voice = (Voice)enums.GetValue(random.Next(enums.Length));
-						sound.glottalArticulation = new GlottalArticulation(voice);
-					}
-					while (!sound.glottalArticulation.IsValid);
+					sound.glottalArticulation = new GlottalArticulation(Voice.Closed);
 					break;
 			}
 			return sound;
@@ -85,8 +87,8 @@ namespace Language {
 				representation += "-Dorsal" + (dorsalArticulation.Centralised ? "Centralised" : "") + dorsalArticulation.Point + dorsalArticulation.Manner;
 			if (radicalArticulation.Point != ObstructionPoint.None)
 				representation += "-Radical" + radicalArticulation.Point + radicalArticulation.Manner;
-			if (glottalArticulation.Point != ObstructionPoint.None)
-				representation += "-Glottal" + glottalArticulation.Point + glottalArticulation.Manner;
+			//if (glottalArticulation.Manner == Manner.Stop)
+			//	representation += "-GlottalStop";
 
 			return representation;
 		}
@@ -100,34 +102,34 @@ namespace Language {
 			else if (initiation == Initiation.Lingual)
 				representation += "/";
 
+			if (labialArticulation.Point != ObstructionPoint.None)
+				representation += "m" + CharacterFrom(labialArticulation.Point) + CharacterFrom(labialArticulation.Manner);
+			if (coronalArticulation.Point != ObstructionPoint.None)
+				representation += "n" + CharacterFrom(coronalArticulation.Shape) + CharacterFrom(coronalArticulation.Point) + CharacterFrom(coronalArticulation.Manner);
+			if (dorsalArticulation.Point != ObstructionPoint.None)
+				representation += "ŋ" + (dorsalArticulation.Centralised ? "¨" : "") + CharacterFrom(dorsalArticulation.Point) + CharacterFrom(dorsalArticulation.Manner);
+			if (radicalArticulation.Point != ObstructionPoint.None)
+				representation += "ʕ" + CharacterFrom(radicalArticulation.Point) + CharacterFrom(radicalArticulation.Manner);
+			//if (glottalArticulation.Point != ObstructionPoint.None)
+			//	representation += "h" + CharacterFrom(glottalArticulation.Point) + CharacterFrom(glottalArticulation.Manner);
+
 			switch (glottalArticulation.Voice) {
 				case Voice.Voiceless:
-					representation += "_";
+					representation += '\u0325'; // ̥
 					break;
 				case Voice.Breathy:
-					representation += "~";
+					representation += '\u0324'; // ̤
 					break;
 				case Voice.Modal: break;
 				case Voice.Creaky:
-					representation += "^";
+					representation += '\u0331'; // ̰
 					break;
 				case Voice.Closed:
-					representation += "|";
+					representation += "ʔ";
 					break;
 			}
 
-			representation += (labialArticulation.Rounded ? "∘" : "");
-
-			if (labialArticulation.Point != ObstructionPoint.None)
-				representation += "l" + CharacterFrom(labialArticulation.Point) + CharacterFrom(labialArticulation.Manner);
-			if (coronalArticulation.Point != ObstructionPoint.None)
-				representation += "c" + CharacterFrom(coronalArticulation.Shape) + CharacterFrom(coronalArticulation.Point) + CharacterFrom(coronalArticulation.Manner);
-			if (dorsalArticulation.Point != ObstructionPoint.None)
-				representation += "d" + (dorsalArticulation.Centralised ? "¨" : "") + CharacterFrom(dorsalArticulation.Point) + CharacterFrom(dorsalArticulation.Manner);
-			if (radicalArticulation.Point != ObstructionPoint.None)
-				representation += "r" + CharacterFrom(radicalArticulation.Point) + CharacterFrom(radicalArticulation.Manner);
-			if (glottalArticulation.Point != ObstructionPoint.None)
-				representation += "g" + CharacterFrom(glottalArticulation.Point) + CharacterFrom(glottalArticulation.Manner);
+			representation += (labialArticulation.Rounded ? "\u0339" : ""); //  ̹
 
 			return representation;
 		}
@@ -137,9 +139,9 @@ namespace Language {
 				case Shape.Central:
 					return "";
 				case Shape.Lateral:
-					return "l";
+					return "\u02E1"; //superscript l
 				case Shape.Sibilant:
-					return "s";
+					return "\u02E2"; //superscript s
 				default:
 					return "E";
 			}

@@ -13,7 +13,7 @@ namespace GenericProgramInterface {
 				input = ui.GetInput();
 				if (input == "stop") break;
 
-				Sound sound = Sound.GetRandomSound();
+				Sound sound = Sound.GetRandomSound(egressive: true, pulmonic: true);
 				ui.WriteLine(sound.FullRepresentation(true));
 				ui.WriteLine(sound.ShortenedRepresentation());
 			}
