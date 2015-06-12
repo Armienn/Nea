@@ -80,5 +80,12 @@ namespace WorkTimer {
 		}
 
 		enum WorkProcessState { Working, Resting }
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+			if (thread != null) {
+				if (thread.IsAlive)
+					thread.Abort();
+			}
+		}
 	}
 }
