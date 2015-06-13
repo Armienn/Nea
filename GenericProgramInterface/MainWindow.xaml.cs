@@ -33,8 +33,8 @@ namespace GenericProgramInterface {
 			WriteLine("Entering Work");
 			//MkvBatching.DoWork(this);
 			//GenericProgramInterface.Various.TranslateFromBinary(this);
-			//GenericProgramInterface.Language.DoWork(this);
-			DisrememberedCreatures.DanskVersion(this);
+			GenericProgramInterface.Language.DoWork(this);
+			//DisrememberedCreatures.DanskVersion(this);
 			WriteLine("Ending Work");
 			/*Thread.Sleep(5000);
 			WriteLine("I'm sleepy æøå");
@@ -56,7 +56,7 @@ namespace GenericProgramInterface {
 			Write(text + '\n');
 		}
 
-		public string GetInput(string message = "") {
+		public string GetInput(string message = "Input") {
 			updated = false;
 			Write("## - " + message + ": ");
 			Dispatcher.Invoke(() => {
@@ -80,8 +80,8 @@ namespace GenericProgramInterface {
 			updated = true;
 		}
 
-		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-			workerthread.Abort();
+		private void ButtonClear_Click(object sender, RoutedEventArgs e) {
+			TextBlockOutput.Text = "";
 		}
 
 		private void TextBoxInput_KeyDown(object sender, KeyEventArgs e) {
@@ -90,6 +90,10 @@ namespace GenericProgramInterface {
 				TextBoxInput.Text = "";
 				updated = true;
 			}
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+			workerthread.Abort();
 		}
 	}
 }
