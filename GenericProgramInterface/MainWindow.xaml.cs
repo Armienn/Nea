@@ -33,7 +33,8 @@ namespace GenericProgramInterface {
 			WriteLine("Entering Work");
 			//MkvBatching.DoWork(this);
 			//GenericProgramInterface.Various.TranslateFromBinary(this);
-			GenericProgramInterface.Language.DoWork(this);
+			//GenericProgramInterface.Language.DoWork(this);
+			DisrememberedCreatures.DanskVersion(this);
 			WriteLine("Ending Work");
 			/*Thread.Sleep(5000);
 			WriteLine("I'm sleepy æøå");
