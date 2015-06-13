@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace GenericProgramInterface {
 	class Various {
 
+		// ************************************************************ //
+
 		public static void TranslateFromBinary(MainWindow ui) {
 			String input = "";
 			while (true) {
@@ -50,5 +52,40 @@ namespace GenericProgramInterface {
 				ui.WriteLine(output);
 			}
 		}
+
+		// ************************************************************ //
+
+		public static void GenerateSimpleWords(MainWindow ui) {
+			Random random = new Random();
+			string vokaler = "aeuioåøæ";
+			string konsonanter = "bcdfghjklmnpqrstvxz";
+
+			while (true) {
+				string ord = "";
+				int stavelser = random.Next(1, 4);
+				for (int i = 0; i < stavelser; i++) {
+					ord += Stavelse(vokaler, konsonanter, random);
+				}
+				ui.WriteLine(ord);
+				ui.GetInput();
+			}
+		}
+
+		private static string Stavelse(string vokaler, string konsonanter, Random random) {
+			string resultat = FåTilfældig(vokaler, random);
+			if (random.Next(3) > 0) {
+				resultat = resultat + FåTilfældig(konsonanter, random);
+			}
+			if (random.Next(3) > 0) {
+				resultat = FåTilfældig(konsonanter, random) + resultat;
+			}
+			return resultat;
+		}
+
+		private static string FåTilfældig(string muligheder, Random random) {
+			return "" + muligheder[random.Next(muligheder.Length)];
+		}
+
+		// ************************************************************ //
 	}
 }
