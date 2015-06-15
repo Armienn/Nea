@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkTimer", "WorkTimer\Work
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcurrentProgramInterface", "ConcurrentProgramInterface\ConcurrentProgramInterface.csproj", "{BA7B96E5-F38F-4111-BD76-0E3F5FCDC411}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleSimulation", "PeopleSimulation\PeopleSimulation.csproj", "{BFC32780-7191-405C-8BE4-586DE74C296B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{BA7B96E5-F38F-4111-BD76-0E3F5FCDC411}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA7B96E5-F38F-4111-BD76-0E3F5FCDC411}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA7B96E5-F38F-4111-BD76-0E3F5FCDC411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFC32780-7191-405C-8BE4-586DE74C296B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC32780-7191-405C-8BE4-586DE74C296B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC32780-7191-405C-8BE4-586DE74C296B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC32780-7191-405C-8BE4-586DE74C296B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
