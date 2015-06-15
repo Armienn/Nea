@@ -23,22 +23,35 @@ namespace ConcurrentProgramInterface {
 		private Thread thread;
 
 		private bool started = false;
-		//public bool abort = false;
+		public bool stopthread = false;
 
 		public MainWindow() {
 			InitializeComponent();
 		}
 
 		private void StartButton_Click(object sender, RoutedEventArgs e) {
-			if (started) {
-				//thread = new Thread(() => world.StartTime(100, 0));
+			if (!started) {
+				started = true;
+				stopthread = false;
+				thread = new Thread(() => PeopleSim.Start(this));
+				thread.Start();
 				StartButton.Content = "Stop";
 			}
 			else {
-				if (thread != null && thread.IsAlive)
-					thread.Abort();
+				StartButton.Content = "Wait";
+				stopthread = true;
+				thread.Join();
+				started = false;
 				StartButton.Content = "Start";
 			}
+		}
+
+		public void AddLogText(string text) {
+			Dispatcher.Invoke(() => { LogText.Text += text; });
+		}
+
+		public void SetLogText(string text) {
+			Dispatcher.Invoke(() => { LogText.Text = text; });
 		}
 	}
 }
