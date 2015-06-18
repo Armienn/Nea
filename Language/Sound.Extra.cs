@@ -12,9 +12,9 @@ namespace Language {
 				random = new Random();
 			Sound sound = new Sound();
 			Array enums = Enum.GetValues(typeof(Airstream));
-			sound.airstream = egressive ? Airstream.Egressive : (Airstream)enums.GetValue(random.Next(enums.Length));
+			sound.Airstream = egressive ? Airstream.Egressive : (Airstream)enums.GetValue(random.Next(enums.Length));
 			enums = Enum.GetValues(typeof(Initiation));
-			sound.initiation = pulmonic ? Initiation.Pulmonic : (Initiation)enums.GetValue(random.Next(enums.Length));
+			sound.Initiation = pulmonic ? Initiation.Pulmonic : (Initiation)enums.GetValue(random.Next(enums.Length));
 			int art = random.Next(5);
 			ObstructionPoint point;
 			Manner manner;
@@ -23,9 +23,9 @@ namespace Language {
 			do {
 				enums = Enum.GetValues(typeof(Voice));
 				voice = (Voice)enums.GetValue(random.Next(enums.Length - 1) + 1);
-				sound.glottalArticulation = new GlottalArticulation(voice);
+				sound.GlottalArticulation = new GlottalArticulation(voice);
 			}
-			while (!sound.glottalArticulation.IsValid);
+			while (!sound.GlottalArticulation.IsValid);
 
 			bool boolean = random.Next(2) == 1 ? true : false;
 			switch (art) {
@@ -33,9 +33,9 @@ namespace Language {
 					do {
 						point = LabialArticulation.possiblepoints[random.Next(LabialArticulation.possiblepoints.Count - 1) + 1];
 						manner = LabialArticulation.possiblemanners[random.Next(LabialArticulation.possiblemanners.Count)];
-						sound.labialArticulation = new LabialArticulation(point, manner, boolean);
+						sound.LabialArticulation = new LabialArticulation(point, manner, boolean);
 					}
-					while (!sound.labialArticulation.IsValid);
+					while (!sound.LabialArticulation.IsValid);
 					break;
 				case 1:
 					do {
@@ -43,28 +43,28 @@ namespace Language {
 						manner = CoronalArticulation.possiblemanners[random.Next(CoronalArticulation.possiblemanners.Count)];
 						enums = Enum.GetValues(typeof(Shape));
 						shape = (Shape)enums.GetValue(random.Next(enums.Length));
-						sound.coronalArticulation = new CoronalArticulation(point, manner, shape);
+						sound.CoronalArticulation = new CoronalArticulation(point, manner, shape);
 					}
-					while (!sound.coronalArticulation.IsValid);
+					while (!sound.CoronalArticulation.IsValid);
 					break;
 				case 2:
 					do {
 						point = DorsalArticulation.possiblepoints[random.Next(DorsalArticulation.possiblepoints.Count - 1) + 1];
 						manner = DorsalArticulation.possiblemanners[random.Next(DorsalArticulation.possiblemanners.Count)];
-						sound.dorsalArticulation = new DorsalArticulation(point, manner, boolean);
+						sound.DorsalArticulation = new DorsalArticulation(point, manner, boolean);
 					}
-					while (!sound.dorsalArticulation.IsValid);
+					while (!sound.DorsalArticulation.IsValid);
 					break;
 				case 3:
 					do {
 						point = RadicalArticulation.possiblepoints[random.Next(RadicalArticulation.possiblepoints.Count - 1) + 1];
 						manner = RadicalArticulation.possiblemanners[random.Next(RadicalArticulation.possiblemanners.Count)];
-						sound.radicalArticulation = new RadicalArticulation(point, manner);
+						sound.RadicalArticulation = new RadicalArticulation(point, manner);
 					}
-					while (!sound.radicalArticulation.IsValid);
+					while (!sound.RadicalArticulation.IsValid);
 					break;
 				case 4:
-					sound.glottalArticulation = new GlottalArticulation(Voice.Closed);
+					sound.GlottalArticulation = new GlottalArticulation(Voice.Closed);
 					break;
 			}
 			return sound;
@@ -72,21 +72,21 @@ namespace Language {
 
 		public String FullRepresentation(bool extrafull = false) {
 			String representation = "";
-			if (extrafull || airstream != Airstream.Egressive)
-				representation += airstream;
-			if (extrafull || initiation != Initiation.Pulmonic)
-				representation += initiation;
+			if (extrafull || Airstream != Airstream.Egressive)
+				representation += Airstream;
+			if (extrafull || Initiation != Initiation.Pulmonic)
+				representation += Initiation;
 
-			representation += glottalArticulation.Voice + (labialArticulation.Rounded ? "Rounded" : "");
+			representation += GlottalArticulation.Voice + (LabialArticulation.Rounded ? "Rounded" : "");
 
-			if (labialArticulation.Point != ObstructionPoint.None)
-				representation += "-Labial" + labialArticulation.Point + labialArticulation.Manner;
-			if (coronalArticulation.Point != ObstructionPoint.None)
-				representation += "-Coronal" + coronalArticulation.Shape + coronalArticulation.Point + coronalArticulation.Manner;
-			if (dorsalArticulation.Point != ObstructionPoint.None)
-				representation += "-Dorsal" + (dorsalArticulation.Centralised ? "Centralised" : "") + dorsalArticulation.Point + dorsalArticulation.Manner;
-			if (radicalArticulation.Point != ObstructionPoint.None)
-				representation += "-Radical" + radicalArticulation.Point + radicalArticulation.Manner;
+			if (LabialArticulation.Point != ObstructionPoint.None)
+				representation += "-Labial" + LabialArticulation.Point + LabialArticulation.Manner;
+			if (CoronalArticulation.Point != ObstructionPoint.None)
+				representation += "-Coronal" + CoronalArticulation.Shape + CoronalArticulation.Point + CoronalArticulation.Manner;
+			if (DorsalArticulation.Point != ObstructionPoint.None)
+				representation += "-Dorsal" + (DorsalArticulation.Centralised ? "Centralised" : "") + DorsalArticulation.Point + DorsalArticulation.Manner;
+			if (RadicalArticulation.Point != ObstructionPoint.None)
+				representation += "-Radical" + RadicalArticulation.Point + RadicalArticulation.Manner;
 			//if (glottalArticulation.Manner == Manner.Stop)
 			//	representation += "-GlottalStop";
 
@@ -95,25 +95,25 @@ namespace Language {
 
 		public String ShortenedRepresentation() {
 			String representation = "";
-			if (airstream == Airstream.Ingressive)
+			if (Airstream == Airstream.Ingressive)
 				representation += ">";
-			if (initiation == Initiation.Glottalic)
+			if (Initiation == Initiation.Glottalic)
 				representation += "?";
-			else if (initiation == Initiation.Lingual)
+			else if (Initiation == Initiation.Lingual)
 				representation += "/";
 
-			if (labialArticulation.Point != ObstructionPoint.None)
-				representation += "m" + CharacterFrom(labialArticulation.Point) + CharacterFrom(labialArticulation.Manner);
-			if (coronalArticulation.Point != ObstructionPoint.None)
-				representation += "n" + CharacterFrom(coronalArticulation.Shape) + CharacterFrom(coronalArticulation.Point) + CharacterFrom(coronalArticulation.Manner);
-			if (dorsalArticulation.Point != ObstructionPoint.None)
-				representation += "ŋ" + (dorsalArticulation.Centralised ? "¨" : "") + CharacterFrom(dorsalArticulation.Point) + CharacterFrom(dorsalArticulation.Manner);
-			if (radicalArticulation.Point != ObstructionPoint.None)
-				representation += "ʕ" + CharacterFrom(radicalArticulation.Point) + CharacterFrom(radicalArticulation.Manner);
+			if (LabialArticulation.Point != ObstructionPoint.None)
+				representation += "m" + CharacterFrom(LabialArticulation.Point) + CharacterFrom(LabialArticulation.Manner);
+			if (CoronalArticulation.Point != ObstructionPoint.None)
+				representation += "n" + CharacterFrom(CoronalArticulation.Shape) + CharacterFrom(CoronalArticulation.Point) + CharacterFrom(CoronalArticulation.Manner);
+			if (DorsalArticulation.Point != ObstructionPoint.None)
+				representation += "ŋ" + (DorsalArticulation.Centralised ? "¨" : "") + CharacterFrom(DorsalArticulation.Point) + CharacterFrom(DorsalArticulation.Manner);
+			if (RadicalArticulation.Point != ObstructionPoint.None)
+				representation += "ʕ" + CharacterFrom(RadicalArticulation.Point) + CharacterFrom(RadicalArticulation.Manner);
 			//if (glottalArticulation.Point != ObstructionPoint.None)
 			//	representation += "h" + CharacterFrom(glottalArticulation.Point) + CharacterFrom(glottalArticulation.Manner);
 
-			switch (glottalArticulation.Voice) {
+			switch (GlottalArticulation.Voice) {
 				case Voice.Voiceless:
 					representation += '\u0325'; // ̥
 					break;
@@ -129,7 +129,7 @@ namespace Language {
 					break;
 			}
 
-			representation += (labialArticulation.Rounded ? "\u0339" : ""); //  ̹
+			representation += (LabialArticulation.Rounded ? "\u0339" : ""); //  ̹
 
 			return representation;
 		}

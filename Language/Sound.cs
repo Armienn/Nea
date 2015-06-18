@@ -8,23 +8,31 @@ using System.Threading.Tasks;
 namespace Language {
 
 	public partial struct Sound {
-		Airstream airstream;
-		Initiation initiation;
+		public Airstream Airstream;
+		public Initiation Initiation;
 
-		LabialArticulation labialArticulation;
+		public LabialArticulation LabialArticulation;
 
-		CoronalArticulation coronalArticulation;
+		public CoronalArticulation CoronalArticulation;
 
-		DorsalArticulation dorsalArticulation;
+		public DorsalArticulation DorsalArticulation;
 
-		RadicalArticulation radicalArticulation;
+		public RadicalArticulation RadicalArticulation;
 
-		GlottalArticulation glottalArticulation;
+		public GlottalArticulation GlottalArticulation;
+
+		public bool Soundless {
+			get {
+				if (Airstream == Airstream.None && Initiation == Initiation.None)
+					return true;
+				else return false;
+			}
+		}
 	}
 
-	public enum Airstream { Egressive, Ingressive }
+	public enum Airstream { None, Egressive, Ingressive }
 
-	public enum Initiation { Pulmonic, Glottalic, Lingual }
+	public enum Initiation { None, Pulmonic, Glottalic, Lingual }
 
 	public enum ObstructionPoint { None, Labial, Dental, Alveolar, PostAlveolar, Palatal, Velar, Uvular, Pharyngeal, Epiglottal, Glottal }
 
