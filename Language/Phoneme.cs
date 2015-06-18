@@ -15,17 +15,29 @@ namespace Language {
 			}
 		}
 		//Tryk?
-		//Sound Onset1
-		//Sound Onset1
-		//Sound Onset1
-		//Sound Onset1
-		//Sound Mid
-		//Sound Mid
-		//Sound Mid
-		//Sound End
-		//Sound End
-		//Sound End
-		//Sound End
+		Onset Onset;
+		Nucleus Nucleus;
+		Coda Coda;
+	}
+
+	struct Onset {
+		Sound First;
+		Sound Second;
+		Sound Third;
+		Sound Fourth;
+	}
+
+	struct Nucleus {
+		Sound First;
+		Sound Mid;
+		Sound Last;
+	}
+
+	struct Coda {
+		Sound First;
+		Sound Second;
+		Sound Third;
+		Sound Fourth;
 	}
 
 	enum Tone { High, Mid, Low, Rising, Falling }
