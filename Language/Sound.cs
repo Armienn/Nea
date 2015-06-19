@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Language {
 
-	public partial struct Sound {
+	public partial struct Sound { //Phone
 		public Airstream Airstream;
 		public Initiation Initiation;
 
