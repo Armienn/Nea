@@ -1,0 +1,3 @@
+[submodule "Emperion"]
+	path = Emperion
+	url = https://github.com/Armienn/Emperion.git
