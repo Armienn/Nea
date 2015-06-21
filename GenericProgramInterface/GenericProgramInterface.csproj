@@ -102,6 +102,10 @@
       <Project>{fadefca9-5055-44f3-be2a-f87c8dd5dc1a}</Project>
       <Name>Language</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NeaKitSharp\NeaKit\NeaKit.csproj">
+      <Project>{a5ee407a-64bc-40b2-932d-c1cb11a8e21b}</Project>
+      <Name>NeaKit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
