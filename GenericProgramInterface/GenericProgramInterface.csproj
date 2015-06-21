@@ -98,6 +98,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Language\Language\Language.csproj">
+      <Project>{fadefca9-5055-44f3-be2a-f87c8dd5dc1a}</Project>
+      <Name>Language</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Nea\Nea.csproj">
       <Project>{a5ee407a-64bc-40b2-932d-c1cb11a8e21b}</Project>
       <Name>Nea</Name>
