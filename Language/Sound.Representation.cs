@@ -11,62 +11,67 @@ namespace Language {
 			if (random == null)
 				random = new Random();
 			Sound sound = new Sound();
-			Array enums = Enum.GetValues(typeof(Airstream));
-			sound.Airstream = egressive ? Airstream.Egressive : (Airstream)enums.GetValue(random.Next(enums.Length));
-			enums = Enum.GetValues(typeof(Initiation));
-			sound.Initiation = pulmonic ? Initiation.Pulmonic : (Initiation)enums.GetValue(random.Next(enums.Length));
-			int art = random.Next(5);
-			ObstructionPoint point;
-			Manner manner;
-			Shape shape;
-			Voice voice;
+			int tries = 0;
 			do {
-				enums = Enum.GetValues(typeof(Voice));
-				voice = (Voice)enums.GetValue(random.Next(enums.Length - 1) + 1);
-				sound.GlottalArticulation = new GlottalArticulation(voice);
-			}
-			while (!sound.GlottalArticulation.IsValid);
+				tries++;
+				Array enums = Enum.GetValues(typeof(Airstream));
+				sound.Airstream = egressive ? Airstream.Egressive : (Airstream)enums.GetValue(random.Next(enums.Length));
+				enums = Enum.GetValues(typeof(Initiation));
+				sound.Initiation = pulmonic ? Initiation.Pulmonic : (Initiation)enums.GetValue(random.Next(enums.Length));
+				int art = random.Next(5);
+				ObstructionPoint point;
+				Manner manner;
+				Shape shape;
+				Voice voice;
+				do {
+					enums = Enum.GetValues(typeof(Voice));
+					voice = (Voice)enums.GetValue(random.Next(enums.Length - 1) + 1);
+					sound.GlottalArticulation = new GlottalArticulation(voice);
+				}
+				while (!sound.GlottalArticulation.IsValid);
 
-			bool boolean = random.Next(2) == 1 ? true : false;
-			switch (art) {
-				case 0:
-					do {
-						point = LabialArticulation.possiblepoints[random.Next(LabialArticulation.possiblepoints.Count - 1) + 1];
-						manner = LabialArticulation.possiblemanners[random.Next(LabialArticulation.possiblemanners.Count)];
-						sound.LabialArticulation = new LabialArticulation(point, manner, boolean);
-					}
-					while (!sound.LabialArticulation.IsValid);
-					break;
-				case 1:
-					do {
-						point = CoronalArticulation.possiblepoints[random.Next(CoronalArticulation.possiblepoints.Count - 1) + 1];
-						manner = CoronalArticulation.possiblemanners[random.Next(CoronalArticulation.possiblemanners.Count)];
-						enums = Enum.GetValues(typeof(Shape));
-						shape = (Shape)enums.GetValue(random.Next(enums.Length));
-						sound.CoronalArticulation = new CoronalArticulation(point, manner, shape);
-					}
-					while (!sound.CoronalArticulation.IsValid);
-					break;
-				case 2:
-					do {
-						point = DorsalArticulation.possiblepoints[random.Next(DorsalArticulation.possiblepoints.Count - 1) + 1];
-						manner = DorsalArticulation.possiblemanners[random.Next(DorsalArticulation.possiblemanners.Count)];
-						sound.DorsalArticulation = new DorsalArticulation(point, manner, boolean);
-					}
-					while (!sound.DorsalArticulation.IsValid);
-					break;
-				case 3:
-					do {
-						point = RadicalArticulation.possiblepoints[random.Next(RadicalArticulation.possiblepoints.Count - 1) + 1];
-						manner = RadicalArticulation.possiblemanners[random.Next(RadicalArticulation.possiblemanners.Count)];
-						sound.RadicalArticulation = new RadicalArticulation(point, manner);
-					}
-					while (!sound.RadicalArticulation.IsValid);
-					break;
-				case 4:
-					sound.GlottalArticulation = new GlottalArticulation(Voice.Closed);
-					break;
+				bool boolean = random.Next(2) == 1 ? true : false;
+				switch (art) {
+					case 0:
+						do {
+							point = LabialArticulation.possiblepoints[random.Next(LabialArticulation.possiblepoints.Count - 1) + 1];
+							manner = LabialArticulation.possiblemanners[random.Next(LabialArticulation.possiblemanners.Count)];
+							sound.LabialArticulation = new LabialArticulation(point, manner, boolean);
+						}
+						while (!sound.LabialArticulation.IsValid);
+						break;
+					case 1:
+						do {
+							point = CoronalArticulation.possiblepoints[random.Next(CoronalArticulation.possiblepoints.Count - 1) + 1];
+							manner = CoronalArticulation.possiblemanners[random.Next(CoronalArticulation.possiblemanners.Count)];
+							enums = Enum.GetValues(typeof(Shape));
+							shape = (Shape)enums.GetValue(random.Next(enums.Length));
+							sound.CoronalArticulation = new CoronalArticulation(point, manner, shape);
+						}
+						while (!sound.CoronalArticulation.IsValid);
+						break;
+					case 2:
+						do {
+							point = DorsalArticulation.possiblepoints[random.Next(DorsalArticulation.possiblepoints.Count - 1) + 1];
+							manner = DorsalArticulation.possiblemanners[random.Next(DorsalArticulation.possiblemanners.Count)];
+							sound.DorsalArticulation = new DorsalArticulation(point, manner, boolean);
+						}
+						while (!sound.DorsalArticulation.IsValid);
+						break;
+					case 3:
+						do {
+							point = RadicalArticulation.possiblepoints[random.Next(RadicalArticulation.possiblepoints.Count - 1) + 1];
+							manner = RadicalArticulation.possiblemanners[random.Next(RadicalArticulation.possiblemanners.Count)];
+							sound.RadicalArticulation = new RadicalArticulation(point, manner);
+						}
+						while (!sound.RadicalArticulation.IsValid);
+						break;
+					case 4:
+						sound.GlottalArticulation = new GlottalArticulation(Voice.Closed);
+						break;
+				}
 			}
+			while (!sound.IsValid && tries < 100);
 			return sound;
 		}
 
