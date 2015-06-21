@@ -28,6 +28,37 @@ namespace Language {
 				else return false;
 			}
 		}
+
+		public bool IsValid {
+			get {
+				//Every subpart must valid
+				if (!(LabialArticulation.IsValid && CoronalArticulation.IsValid && DorsalArticulation.IsValid && RadicalArticulation.IsValid && GlottalArticulation.IsValid))
+					return false;
+
+				if (Initiation == Initiation.Pulmonic) {
+					//Cannot be have rounded lips(labialisation) while doing linguolabial stuff
+					if (LabialArticulation.Rounded && CoronalArticulation.Point == ObstructionPoint.Labial)
+						return false;
+
+					//Cannot have coarticulation of back coronals with front dorsals
+					if (CoronalArticulation.Point != ObstructionPoint.None && DorsalArticulation.Point != ObstructionPoint.None) {
+						if (CoronalArticulation.Point == ObstructionPoint.Palatal)
+							return false;
+						if (DorsalArticulation.Point == ObstructionPoint.PostAlveolar)
+							return false;
+						if (CoronalArticulation.Point == ObstructionPoint.PostAlveolar && DorsalArticulation.Point == ObstructionPoint.Palatal)
+							return false;
+					}
+				}
+				else if (Initiation == Initiation.Lingual) {
+					//TODO
+				}
+				else if (Initiation == Initiation.Glottalic) {
+					//TODO
+				}
+				return true;
+			}
+		}
 	}
 
 	public enum Airstream { None, Egressive, Ingressive }
@@ -79,7 +110,7 @@ namespace Language {
 		}
 	}
 
-	public struct CoronalArticulation {
+	public struct CoronalArticulation { //for the sake of simplicity we don't distinguish laminal, apical and subapical
 		public ObstructionPoint Point { get { return point; } }
 		private readonly ObstructionPoint point;
 		public Manner Manner { get { return manner; } }
