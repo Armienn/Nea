@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nea", "Nea\Nea.csproj", "{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeaProgramServer", "NeaProgramServer\NeaProgramServer.csproj", "{2E462CD0-C43D-4194-9DC9-8C5A707BF05A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeaProgramStarter", "NeaProgramStarter\NeaProgramStarter.csproj", "{BA7C96B2-A53E-48DE-8E31-A99793961433}"
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2E462CD0-C43D-4194-9DC9-8C5A707BF05A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2E462CD0-C43D-4194-9DC9-8C5A707BF05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E462CD0-C43D-4194-9DC9-8C5A707BF05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
