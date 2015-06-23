@@ -124,13 +124,14 @@ namespace PeopleSimulation {
 
 		public String RandomName() {
 			int syllables = random.Next(1, 4);
-			string vowels = "aeuio";//åøæ
-			string consonants = "bcdfghjklmnpqrstvxz";
+			string vowels = "aeuioy";//aeuioyåøæ
+			string consonants = "bdfghjklmnprstvwz";//bcdfghjklmnpqrstvxz
 
 			string name = "";
 			for (int i = 0; i < syllables; i++) {
 				name += Syllable(vowels, consonants, random);
 			}
+			name = Char.ToUpper(name[0]) + name.Substring(1);
 			return name;
 		}
 
