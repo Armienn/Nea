@@ -123,14 +123,30 @@ namespace PeopleSimulation {
 		}
 
 		public String RandomName() {
-			int chars = random.Next(3, 6);
-			String result = "";
-			String letters = "abcdefghijklmnopqrstuvwxyz";
-			for (int i = 0; i < chars; i++) {
-				int letter = random.Next(letters.Length);
-				result += letters[letter];
+			int syllables = random.Next(1, 4);
+			string vowels = "aeuio";//åøæ
+			string consonants = "bcdfghjklmnpqrstvxz";
+
+			string name = "";
+			for (int i = 0; i < syllables; i++) {
+				name += Syllable(vowels, consonants, random);
 			}
-			return result;
+			return name;
+		}
+
+		private static string Syllable(string vowels, string consonants, Random random) {
+			string resultat = GetRandomChar(vowels, random);
+			if (random.Next(3) > 0) {
+				resultat = resultat + GetRandomChar(consonants, random);
+			}
+			if (random.Next(3) > 0) {
+				resultat = GetRandomChar(consonants, random) + resultat;
+			}
+			return resultat;
+		}
+
+		private static string GetRandomChar(string possibilities, Random random) {
+			return "" + possibilities[random.Next(possibilities.Length)];
 		}
 	}
 }
