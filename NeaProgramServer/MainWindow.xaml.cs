@@ -47,7 +47,7 @@ namespace NeaProgramServer {
 
 			terraria = new Process();
 			terraria.StartInfo.WorkingDirectory = "C:\\Users\\Kristjan\\Dropbox\\Spil\\Terraria";
-			terraria.StartInfo.FileName = "start-server.bat";
+			terraria.StartInfo.FileName = "startLundion.bat";
 
 			StartListening();
 		}
