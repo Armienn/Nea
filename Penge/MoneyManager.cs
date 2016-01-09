@@ -19,14 +19,14 @@ namespace Penge {
 			paid = new Dictionary<string,decimal>();
 			balance = new Dictionary<string, decimal>();
 			foreach (Entry entry in Entries) {
-				if (!paid.ContainsKey(entry.PayerPerson))
-					paid.Add(entry.PayerPerson, 0);
-				paid[entry.PayerPerson] += entry.Money;
+				if (!paid.ContainsKey(entry.Payer))
+					paid.Add(entry.Payer, 0);
+				paid[entry.Payer] += entry.MoneyTotal;
 
-				foreach (string person in entry.ForPersons) {
+				foreach (string person in entry.Recievers) {
 					if (!used.ContainsKey(person))
 						used.Add(person, 0);
-					used[person] += entry.Money / entry.ForPersons.Length;
+					used[person] += entry.PaidFor(person);
 				}
 			}
 			foreach (string person in used.Keys) {
@@ -41,6 +41,15 @@ namespace Penge {
 			foreach (string person in used.Keys) {
 				balance[person] = paid[person] - used[person];
 			}
+		}
+
+		public Entry GetEntry(DateTime date, string payer) {
+			Entry entry = new Entry(date, payer);
+			for (int i = Entries.Count-1; i >= 0; i--) {
+				if (Entries[i].CompareTo(entry) == 0)
+					return Entries[i];
+			}
+			return entry;
 		}
 
 		public Entry[] GetEntriesBetween(DateTime start, DateTime end) {
@@ -59,41 +68,25 @@ namespace Penge {
 					string[] cells = reader.ReadLine().Split('\t');
 					if (cells[0] != "") {
 						if (cells[2] != "") {
-							Entry entry = new Entry();
-							entry.PayerPerson = "Kristjan";
-							entry.Purpose = cells[0];
-							entry.Date = DateTime.Parse(cells[1]);
-							entry.Money = decimal.Parse(cells[2]);
-							entry.ForPersons = new string[] { "Kristjan", "Valyrian" };
+							Entry entry = new Entry(DateTime.Parse(cells[1]), "Kristjan");
+							entry.AddPurchase(decimal.Parse(cells[2]), cells[0], cells[0], "Kristjan", "Valyrian");
 							Entries.Add(entry);
 						}
 						if (cells[3] != "") {
-							Entry entry = new Entry();
-							entry.PayerPerson = "Kristjan";
-							entry.Purpose = cells[0];
-							entry.Date = DateTime.Parse(cells[1]);
-							entry.Money = decimal.Parse(cells[3]);
-							entry.ForPersons = new string[] { "Valyrian" };
+							Entry entry = new Entry(DateTime.Parse(cells[1]), "Kristjan");
+							entry.AddPurchase(decimal.Parse(cells[3]), cells[0], cells[0], "Valyrian");
 							Entries.Add(entry);
 						}
 					}
 					if (cells[4] != "") {
 						if (cells[6] != "") {
-							Entry entry = new Entry();
-							entry.PayerPerson = "Valyrian";
-							entry.Purpose = cells[4];
-							entry.Date = DateTime.Parse(cells[5]);
-							entry.Money = decimal.Parse(cells[6]);
-							entry.ForPersons = new string[] { "Kristjan", "Valyrian" };
+							Entry entry = new Entry(DateTime.Parse(cells[5]), "Valyrian");
+							entry.AddPurchase(decimal.Parse(cells[6]), cells[4], cells[4], "Kristjan", "Valyrian");
 							Entries.Add(entry);
 						}
 						if (cells[7] != "") {
-							Entry entry = new Entry();
-							entry.PayerPerson = "Valyrian";
-							entry.Purpose = cells[4];
-							entry.Date = DateTime.Parse(cells[5]);
-							entry.Money = decimal.Parse(cells[7]);
-							entry.ForPersons = new string[] { "Kristjan" };
+							Entry entry = new Entry(DateTime.Parse(cells[5]), "Valyrian");
+							entry.AddPurchase(decimal.Parse(cells[7]), cells[4], cells[4], "Kristjan");
 							Entries.Add(entry);
 						}
 					}
@@ -112,17 +105,8 @@ namespace Penge {
 		public void Load(string file) {
 			using (NeaReader reader = new NeaReader(new StreamReader(file))) {
 				while (!reader.IsAtEnd()) {
-					string[] cells = reader.ReadLine().Split(';');
-					Entry entry = new Entry();
-					entry.PayerPerson = cells[0];
-					entry.Date = DateTime.Parse(cells[1]);
-					entry.Money = decimal.Parse(cells[2]);
-					entry.Purpose = cells[3];
-					List<string> forpersons = new List<string>();
-					for (int i = 4; i < cells.Length; i++)
-						forpersons.Add(cells[i]);
-					entry.ForPersons = forpersons.ToArray();
-					Entries.Add(entry);
+					Entries.Add(new Entry(reader.ReadSection('{', '}')));
+					reader.SkipWhiteSpace();
 				}
 			}
 		}

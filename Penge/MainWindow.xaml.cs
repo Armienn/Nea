@@ -24,9 +24,11 @@ namespace Penge {
 		public MainWindow() {
 			InitializeComponent();
 			manager = new MoneyManager();
+			//manager.LoadFromTxt(@"E:\Dropbox\Val\Penge.txt");
 			manager.Load(file);
 			System.IO.File.Delete(file + ".backup");
 			System.IO.File.Copy(file, file + ".backup");
+
 			Dictionary<string, decimal> balance;
 			Dictionary<string, decimal> used;
 			Dictionary<string, decimal> paid;
@@ -37,21 +39,26 @@ namespace Penge {
 			else {
 				LabelOwer.Content = "Valyrian skylder " + balance["Kristjan"];
 			}
-			//manager.LoadFromTxt(@"E:\Dropbox\Val\Penge.txt");
+			
 			//manager.Save(@"E:\Dropbox\Val\PengeTest.txt");
 		}
 
 		private void ButtonAdd_Click(object sender, RoutedEventArgs e) {
 			TextError.Text = "";
 			try {
-				Entry entry = new Entry();
-				entry.PayerPerson = (string)((ComboBoxItem)ComboBoxPayer.SelectedValue).Content;
-				entry.Purpose = InputPurpose.Text;
-				entry.Date = DateTime.Parse(InputDate.Text);
-				entry.Money = decimal.Parse(InputMoney.Text);
+				string payer = (string)((ComboBoxItem)ComboBoxPayer.SelectedValue).Content;
+				DateTime date = DateTime.Parse(InputDate.Text);
+				Entry entry = manager.GetEntry(date, payer);
+
 				string temp = (string)((ComboBoxItem)ComboBoxFor.SelectedValue).Content;
-				entry.ForPersons = temp == "Begge" ? new string[] { "Kristjan", "Valyrian" } : new string[] { temp };
+				entry.AddPurchase(
+					decimal.Parse(InputMoney.Text),
+					InputThing.Text,
+					InputCategory.Text,
+					temp == "Begge" ? new string[] { "Kristjan", "Valyrian" } : new string[] { temp });
 				manager.Entries.Add(entry);
+				manager.Entries.Sort();
+				TextError.Text = "Added " + entry;
 				manager.Save(file);
 			}
 			catch (Exception ex) {
@@ -63,10 +70,10 @@ namespace Penge {
 			TextKristjan.Text = "";
 			TextValyrian.Text = "";
 			foreach (Entry entry in manager.Entries) {
-				if (entry.PayerPerson == "Kristjan")
-					TextKristjan.Text += entry.ReadableRepresentation() + '\n';
+				if (entry.Payer == "Kristjan")
+					TextKristjan.Text += entry.ToString() + '\n';
 				else
-					TextValyrian.Text += entry.ReadableRepresentation() + '\n';
+					TextValyrian.Text += entry.ToString() + '\n';
 			}
 		}
 	}
