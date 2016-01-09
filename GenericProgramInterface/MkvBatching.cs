@@ -72,12 +72,17 @@ namespace GenericProgramInterface {
 					tracktitle += " - " + trackname;
 
 				string maininputarguments =
+					" --track-order 0:0,0:2,0:1" +
 					" --track-name 0:\"\"" +
-					" --track-name 1:\"English AC3 2.0\"" +
-					" --language 1:eng" +
+					" --track-name 1:\"General\"" +
+					" --language 1:jpn" +
+					//" --track-name 2:\"General\"" +
+					//" --language 2:jpn" +
+					//" --default-track 2" +
+					//" --no-subtitles" +
 					//" --track-name 0:\"\"" +
 					//" --track-name 1:\"Japanese FLAC 2.0\"" +
-					//" --track-name 2:General" +
+					" --track-name 2:General" +
 					" \"" + video + "\"";
 
 				string subinputarguments = "";

@@ -1,0 +1,51 @@
+﻿<Window x:Class="Penge.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="600" Width="800">
+	<Grid>
+		<TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+			<TabItem Header="Oversigt">
+				<Grid Background="#FFE5E5E5">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="28" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+					<ScrollViewer HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Stretch" Width="390">
+						<TextBlock x:Name="TextKristjan" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch"/>
+					</ScrollViewer>
+					<ScrollViewer HorizontalAlignment="Left" Margin="392,0,0,0" Grid.Row="1" VerticalAlignment="Stretch" Width="390">
+						<TextBlock x:Name="TextValyrian" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch"/>
+					</ScrollViewer>
+					<ComboBox x:Name="ComboBoxTime" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="120">
+						<ComboBoxItem Content="Altid" HorizontalAlignment="Left" Width="118"/>
+					</ComboBox>
+					<Button x:Name="ButtonShow" Content="Vis" HorizontalAlignment="Left" Margin="135,5,0,0" VerticalAlignment="Top" Width="75" Click="ButtonShow_Click"/>
+					<Label x:Name="LabelOwer" Content="Nuværende skyldner" HorizontalAlignment="Left" Margin="215,3,0,0" VerticalAlignment="Top"/>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Tilføj">
+				<Grid Background="#FFE5E5E5">
+					<Label Content="Betaler:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+					<ComboBox x:Name="ComboBoxPayer" HorizontalAlignment="Left" Margin="128,14,0,0" VerticalAlignment="Top" Width="120">
+						<ComboBoxItem Content="Kristjan" HorizontalAlignment="Left" Width="118"/>
+						<ComboBoxItem Content="Valyrian" HorizontalAlignment="Left" Width="118"/>
+					</ComboBox>
+					<Label Content="Betalt for:" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
+					<ComboBox x:Name="ComboBoxFor" HorizontalAlignment="Left" Margin="128,41,0,0" VerticalAlignment="Top" Width="120">
+						<ComboBoxItem Content="Kristjan" HorizontalAlignment="Left" Width="118"/>
+						<ComboBoxItem Content="Valyrian" HorizontalAlignment="Left" Width="118"/>
+						<ComboBoxItem Content="Begge" HorizontalAlignment="Left" Width="118"/>
+					</ComboBox>
+					<Label Content="Penge:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
+					<TextBox x:Name="InputMoney" HorizontalAlignment="Left" Height="23" Margin="128,68,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+					<TextBox x:Name="InputDate" HorizontalAlignment="Left" Height="23" Margin="128,96,0,0" TextWrapping="Wrap" Text="01-01-2016" VerticalAlignment="Top" Width="120"/>
+					<Label Content="Dato:" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
+					<TextBox x:Name="InputPurpose" HorizontalAlignment="Left" Height="23" Margin="128,124,0,0" TextWrapping="Wrap" Text="Mad" VerticalAlignment="Top" Width="120"/>
+					<Label Content="Formål:" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top"/>
+					<Button x:Name="ButtonAdd" Content="Tilføj" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="238" Click="ButtonAdd_Click"/>
+					<TextBlock x:Name="TextError" HorizontalAlignment="Left" Margin="10,179,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" Foreground="Red" Width="238"/>
+				</Grid>
+			</TabItem>
+		</TabControl>
+	</Grid>
+</Window>

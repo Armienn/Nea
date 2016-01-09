@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Language", "Language\Langua
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeaKit", "NeaKitSharp\NeaKit\NeaKit.csproj", "{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Penge", "Penge\Penge.csproj", "{08F270A7-EC75-438D-A9B8-32D72A202301}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5EE407A-64BC-40B2-932D-C1CB11A8E21B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08F270A7-EC75-438D-A9B8-32D72A202301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08F270A7-EC75-438D-A9B8-32D72A202301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08F270A7-EC75-438D-A9B8-32D72A202301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08F270A7-EC75-438D-A9B8-32D72A202301}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

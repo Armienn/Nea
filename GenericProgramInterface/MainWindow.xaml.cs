@@ -31,9 +31,9 @@ namespace GenericProgramInterface {
 
 		private void Work() {
 			WriteLine("Entering Work");
-			//MkvBatching.DoWork(this);
+			MkvBatching.DoWork(this);
 			//GenericProgramInterface.Various.TranslateFromBinary(this);
-			GenericProgramInterface.Language.DoWork(this);
+			//GenericProgramInterface.Language.DoWork(this);
 			//DisrememberedCreatures.DanskVersion(this);
 			WriteLine("Ending Work");
 			/*Thread.Sleep(5000);
