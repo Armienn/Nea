@@ -19,7 +19,8 @@ namespace Penge {
 	/// </summary>
 	public partial class MainWindow : Window {
 		MoneyManager manager;
-		string file = @"E:\Dropbox\Val\PengeTest.txt";
+		string file = "PengeTest.txt";
+		Dictionary<string, decimal> things;
 
 		public MainWindow() {
 			InitializeComponent();
@@ -39,7 +40,13 @@ namespace Penge {
 			else {
 				LabelOwer.Content = "Valyrian skylder " + balance["Kristjan"];
 			}
-			
+
+			ComboCategory.ItemsSource = manager.GetCategories();
+			things = manager.GetThings();
+			var keys = things.Keys.ToList();
+			keys.Sort();
+			ComboThing.ItemsSource = keys;
+
 			//manager.Save(@"E:\Dropbox\Val\PengeTest.txt");
 		}
 
@@ -56,8 +63,10 @@ namespace Penge {
 					InputThing.Text,
 					InputCategory.Text,
 					temp == "Begge" ? new string[] { "Kristjan", "Valyrian" } : new string[] { temp });
-				manager.Entries.Add(entry);
-				manager.Entries.Sort();
+				if (!manager.Entries.Contains(entry)) {
+					manager.Entries.Add(entry);
+					manager.Entries.Sort();
+				}
 				TextError.Text = "Added " + entry;
 				manager.Save(file);
 			}
@@ -75,6 +84,16 @@ namespace Penge {
 				else
 					TextValyrian.Text += entry.ToString() + '\n';
 			}
+		}
+
+		private void ComboThing_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			string thing = (string)ComboThing.SelectedValue;
+			InputThing.Text = thing;
+			InputMoney.Text = things[thing].ToString();
+		}
+
+		private void ComboCategory_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			InputCategory.Text = (string)ComboCategory.SelectedValue;
 		}
 	}
 }

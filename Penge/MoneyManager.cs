@@ -43,6 +43,31 @@ namespace Penge {
 			}
 		}
 
+		public Dictionary<string, decimal> GetThings() {
+			Dictionary<string, decimal> result = new Dictionary<string, decimal>();
+			foreach (Entry entry in Entries) {
+				foreach (Purchase purchase in entry.Purchases) {
+					if (!result.ContainsKey(purchase.Thing))
+						result.Add(purchase.Thing, purchase.Money);
+					else
+						result[purchase.Thing] = purchase.Money;
+				}
+			}
+			return result;
+		}
+
+		public string[] GetCategories() {
+			List<string> result = new List<string>();
+			foreach (Entry entry in Entries) {
+				foreach (Purchase purchase in entry.Purchases) {
+					if (!result.Contains(purchase.Category))
+						result.Add(purchase.Category);
+				}
+			}
+			result.Sort();
+			return result.ToArray();
+		}
+
 		public Entry GetEntry(DateTime date, string payer) {
 			Entry entry = new Entry(date, payer);
 			for (int i = Entries.Count-1; i >= 0; i--) {
