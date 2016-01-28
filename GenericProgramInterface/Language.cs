@@ -10,7 +10,12 @@ namespace GenericProgramInterface {
 	class LanguageStuff {
 		public static void DoWork(MainWindow ui) {
 			String input = "";
-			NeaKit.Language dansk = NeaKit.Language.GetDansk();
+			NeaKit.Language dansk = new NeaKit.Language();
+
+			//dansk.Save("testdansk.txt");
+
+			//NeaKit.Language sprog = new NeaKit.Language();
+			dansk.Load("dansk.txt");
 
 			while (true) {
 				input = ui.GetInput();
